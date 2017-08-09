@@ -129,29 +129,6 @@
         </encoder>
     </appender>
 
-
-    <!-- This is the kafkaAppender -->
-    <appender name="kafkaAppender" class="com.github.danielwegener.logback.kafka.KafkaAppender">
-        <!-- This is the default encoder that encodes every log message to an utf8-encoded string  -->
-        <encoder class="com.github.danielwegener.logback.kafka.encoding.LayoutKafkaMessageEncoder">
-            <layout class="ch.qos.logback.classic.PatternLayout">
-                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-            </layout>
-        </encoder>
-        <topic>zhang-logs</topic>
-        <keyingStrategy class="com.github.danielwegener.logback.kafka.keying.RoundRobinKeyingStrategy" />
-        <deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy" />
-
-        <!-- each <producerConfig> translates to regular kafka-client config (format: key=value) -->
-        <!-- producer configs are documented here: https://kafka.apache.org/documentation.html#newproducerconfigs -->
-        <!-- bootstrap.servers is the only mandatory producerConfig -->
-        <producerConfig>bootstrap.servers=localhost:9092</producerConfig>
-
-        <!-- this is the fallback appender if kafka is not available. -->
-        <appender-ref ref="STDOUT"/>
-    </appender>
-    <!-- appender end -->
-
     <!-- logger start -->
     <!-- sql日志logger -->
 
@@ -184,12 +161,6 @@
     <logger name="com.icinfo" level="info" additivity="true">
         <appender-ref ref="BUSINESS_LOG_FILE"/>
     </logger>
-
-    <!-- kafka logger -->
-    <logger name="kafkaLogger" level="info" additivity="false">
-        <appender-ref ref="kafkaAppender" />
-    </logger>
-    <!-- logger end -->
 
     <!-- 根logger -->
     <root level="info">
