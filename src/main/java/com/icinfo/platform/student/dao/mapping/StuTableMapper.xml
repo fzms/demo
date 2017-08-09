@@ -6,6 +6,6 @@
   </resultMap>
 
   <select id="selectList" resultMap="DtoBaseResultMap">
-    select * from stu_table;
+    select * from stu_table
   </select>
 </mapper>

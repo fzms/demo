@@ -1,5 +1,6 @@
 package com.icinfo.platform.student.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.icinfo.platform.student.dao.StuTableDao;
 import com.icinfo.platform.student.dto.StuTableDto;
 import com.icinfo.platform.student.service.IStuTableService;
@@ -18,6 +19,8 @@ public class StuTableServiceImpl implements IStuTableService {
 
     @Override
     public List<StuTableDto> getList() throws Exception {
-        return stuTableDao.selectList();
+        PageHelper.startPage(1, 2);
+        List<StuTableDto> stuTableDtos = stuTableDao.selectList();
+        return stuTableDtos;
     }
 }
