@@ -26,11 +26,12 @@
     <mvc:resources mapping="/js/lib/**" location="/WEB-INF/views/js/lib/" cache-period="0"/>
     <mvc:resources mapping="/js/**" location="/WEB-INF/views/js/" cache-period="0"/>
     <mvc:resources mapping="/img/**" location="/WEB-INF/views/img/" cache-period="0"/>
+    <mvc:resources mapping="/fonts/**" location="/WEB-INF/views/fonts/" cache-period="0"/>
 
     <!--ViewResolver-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-        <property name="prefix" value="/WEB-INF/views/page/"/>
+        <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".html"/>
     </bean>
 

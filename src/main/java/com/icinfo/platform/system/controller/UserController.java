@@ -26,21 +26,21 @@ public class UserController {
      */
     @RequestMapping(value = "/to_login", method = RequestMethod.GET)
     public String toLogin() throws Exception {
-        return "system/login";
+        return "login";
     }
 
     /**
      * 用户登录
      *
-     * @param userName 用户名
+     * @param username 用户名
      * @param password 密码
      * @return 结果
      * @throws Exception 异常
      */
     @RequestMapping(value = "login", method = RequestMethod.GET)
     @ResponseBody
-    public AjaxResponse login(@RequestParam(value = "userName") String userName,
+    public AjaxResponse login(@RequestParam(value = "username") String username,
                               @RequestParam(value = "password") String password) throws Exception {
-        return new AjaxResponse(userService.login(userName, password));
+        return new AjaxResponse(userService.login(username, password));
     }
 }
