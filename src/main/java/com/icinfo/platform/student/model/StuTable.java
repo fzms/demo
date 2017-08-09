@@ -1,5 +1,10 @@
 package com.icinfo.platform.student.model;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name = "stu_table")
 public class StuTable {
     /**
      *
@@ -8,6 +13,8 @@ public class StuTable {
      *
      * @mbg.generated
      */
+    @Id
+    @Column(name = "stu_id")
     private String stuId;
 
     /**
@@ -17,6 +24,7 @@ public class StuTable {
      *
      * @mbg.generated
      */
+    @Column(name = "name")
     private String name;
 
     /**
@@ -26,6 +34,7 @@ public class StuTable {
      *
      * @mbg.generated
      */
+    @Column(name = "sex")
     private String sex;
 
     /**
@@ -35,6 +44,7 @@ public class StuTable {
      *
      * @mbg.generated
      */
+    @Column(name = "address")
     private String address;
 
     /**
@@ -44,6 +54,7 @@ public class StuTable {
      *
      * @mbg.generated
      */
+    @Column(name = "phone")
     private String phone;
 
     /**

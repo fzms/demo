@@ -1,7 +1,7 @@
 package com.icinfo.platform.student.controller;
 
 import com.icinfo.platform.common.bean.AjaxResponse;
-import com.icinfo.platform.student.model.StuTable;
+import com.icinfo.platform.student.dto.StuTableDto;
 import com.icinfo.platform.student.service.IStuTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,8 +28,8 @@ public class StuTableController {
 
     @RequestMapping(value = "query", method = RequestMethod.GET)
     @ResponseBody
-    public AjaxResponse<List<StuTable>> query(HttpServletRequest request) throws Exception {
+    public AjaxResponse<List<StuTableDto>> query(HttpServletRequest request) throws Exception {
 
-        return new AjaxResponse<List<StuTable>>(stuTableService.getList());
+        return new AjaxResponse<>(stuTableService.getList());
     }
 }

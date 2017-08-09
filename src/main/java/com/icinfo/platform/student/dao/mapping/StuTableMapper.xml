@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.icinfo.platform.student.dao.StuTableDao">
-  <!--<resultMap id="BaseResultMap" type="com.icinfo.platform.student.dto.StuTableDto"-->
-  <!--extends="com.icinfo.platform.student.model.StuTable">-->
-  <!--</resultMap>-->
+  <resultMap id="DtoBaseResultMap" type="com.icinfo.platform.student.dto.StuTableDto"
+             extends="com.icinfo.platform.student.mapper.StuTableMapper.BaseResultMap">
+  </resultMap>
 
-  <select id="selectList" resultType="com.icinfo.platform.student.dto.StuTableDto">
+  <select id="selectList" resultMap="DtoBaseResultMap">
     select * from stu_table;
   </select>
 </mapper>

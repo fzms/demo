@@ -1,7 +1,7 @@
 package com.icinfo.platform.student.service.impl;
 
 import com.icinfo.platform.student.dao.StuTableDao;
-import com.icinfo.platform.student.model.StuTable;
+import com.icinfo.platform.student.dto.StuTableDto;
 import com.icinfo.platform.student.service.IStuTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class StuTableServiceImpl implements IStuTableService {
     private StuTableDao stuTableDao;
 
     @Override
-    public List<StuTable> getList() throws Exception {
+    public List<StuTableDto> getList() throws Exception {
         return stuTableDao.selectList();
     }
 }
