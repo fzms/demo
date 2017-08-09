@@ -29,7 +29,6 @@ public class StuTableController {
     @RequestMapping(value = "query", method = RequestMethod.GET)
     @ResponseBody
     public AjaxResponse<List<StuTableDto>> query(HttpServletRequest request) throws Exception {
-
-        return new AjaxResponse<>(stuTableService.getList());
+        return new AjaxResponse<List<StuTableDto>>(stuTableService.getList());
     }
 }
