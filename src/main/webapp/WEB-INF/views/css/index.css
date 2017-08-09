@@ -1,0 +1,22 @@
+.head{
+	background-color: #ff0;
+	height: 2em;
+	width: 100%;
+	margin-bottom: 2em;
+}
+
+.nav-list{
+	line-height: 2em;
+	font-size: 1.5em;
+	color: rgb(147,226,200);
+}
+.nav-list li:hover{
+	color: rgb(100,200,200);
+}
+
+
+
+
+.ui-grid-header-cell-wrapper{
+	height: auto;;
+}
