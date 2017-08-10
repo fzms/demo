@@ -35,22 +35,38 @@
                                   cellTemplate: '<div class="ui-grid-cell-contents text-center"><button type="button" class="btn blue-madison btn-xs" ng-click="grid.appScope.edit(row.entity)" ><i class="fa fa-edit"></i><span style="padding-left: 2px;">编辑</span></button>&nbsp;<button type="button" class="btn blue-madison btn-xs" ng-click="grid.appScope.delete(row.entity)" ><i class="fa fa-remove"></i><span style="padding-left: 2px;">删除</span></button></div> '}
                             ],
 
-                enableSorting: true, //是否排序
-                useExternalSorting: false, //是否使用自定义排序规则
-                enableGridMenu: true, //是否显示grid 菜单
-                showGridFooter: true, //是否显示grid footer
-                enableHorizontalScrollbar :  1, //grid水平滚动条是否显示, 0-不显示  1-显示
-                enableVerticalScrollbar : 0, //grid垂直滚动条是否显示, 0-不显示  1-显示
+                // enableSorting: true, //是否排序
+                // useExternalSorting: false, //是否使用自定义排序规则
+                // enableGridMenu: true, //是否显示grid 菜单
+                // showGridFooter: true, //是否显示grid footer
+                // enableHorizontalScrollbar :  1, //grid水平滚动条是否显示, 0-不显示  1-显示
+                // enableVerticalScrollbar : 0, //grid垂直滚动条是否显示, 0-不显示  1-显示
 
                 //-------- 分页属性 ----------------
-                enablePagination: true, //是否分页，默认为true
-                enablePaginationControls: true, //使用默认的底部分页
-                paginationPageSizes: [10, 15, 20], //每页显示个数可选项
-                paginationCurrentPage:1, //当前页码
-                paginationPageSize: 10, //每页显示个数
-                //paginationTemplate:"<div></div>", //自定义底部分页代码
-                totalItems : 0, // 总数量
+                // enablePagination: true, //是否分页，默认为true
+                // enablePaginationControls: true, //使用默认的底部分页
+                // paginationPageSizes: [10, 15, 20], //每页显示个数可选项
+                // paginationCurrentPage:1, //当前页码
+                // paginationPageSize: 10, //每页显示个数
+                // //paginationTemplate:"<div></div>", //自定义底部分页代码
+                // totalItems : 0, // 总数量
+                // useExternalPagination: true,//是否使用分页按钮
+
+
+                showGroupPanel: true,
+                paginationPageSizes: [5, 10, 15],
+                paginationPageSize: $scope.size,
+                //使用服务端分页
                 useExternalPagination: true,//是否使用分页按钮
+                useExternalSorting: true,  //是否使用自定义排序规则
+                enableHorizontalScrollbar :  1, //grid水平滚动条是否显示, 0-不显示  1-显示
+                enableVerticalScrollbar : 1,   //grid垂直滚动条是否显示, 0-不显示  1-显示
+                exporterOlderExcelCompatibility:true,
+                enableFullRowSelection:true,
+                enableSelectAll : false,
+                multiSelect:false,
+
+
 
 
                 //----------- 选中 ----------------------
@@ -76,15 +92,6 @@
                 },
                 exporterCsvColumnSeparator: ',',
                 exporterCsvFilename:'download.csv',
-                // exporterFieldCallback : function ( grid, row, col, value ){
-                //  if ( value == 50 ){
-                //    value = "可以退休";
-                //  }
-                //  return value;
-                // },
-                // exporterHeaderFilter :function( displayName ){
-                //    return 'col: ' + name;
-                // },
                 exporterHeaderFilterUseName : true,
                 exporterMenuCsv : true,
                 exporterMenuLabel : "Export",
@@ -102,13 +109,7 @@
                   fontSize: 11,font:'simblack' //font 设置自定义字体
                 },
                 exporterPdfFilename:'download.pdf',
-                /* exporterPdfFooter : {
-                 columns: [
-                   'Left part',
-                   { text: 'Right part', alignment: 'right' }
-                 ]
-                },
-                或 */
+
                 exporterPdfFooter: function(currentPage, pageCount) {
                        return currentPage.toString() + ' of ' + pageCount;
                 },
@@ -156,23 +157,20 @@
                     //$scope.myData = mydefalutData.slice(firstRow, firstRow + pageSize);
             };
 
-            // var mydefalutData = [{ stu_id:"31202210",name: "Moroni", sex: "男", birthday: "Oct 28, 1970", address: "莆田",phone:"13357536844" },
-            //                 { stu_id:"31202210",name: "Tiancum", sex: "男", birthday: "Feb 12, 1985", address: "四川" ,phone:"13346567872"  },
-            //                 { stu_id:"31202211",name: "Jacob", sex: "女", birthday: "Aug 23, 1983", address: "上海" ,phone:"17526853478"  },
-            //                 { stu_id:"31202212",name: "Nephi", sex: "男", birthday: "May 31, 2010", address: "北京" ,phone:"17346854379"  },
-            //                 { stu_id:"31202213",name: "Enos", sex: "女", birthday: "Aug 3, 2008",  address: "重庆" ,phone:"12537943689"  },
-            //                 { stu_id:"31202214",name: "Moroni", sex: "男", birthday: "Oct 28, 1970", address: "厦门"  ,phone:"" },
-            //                 { stu_id:"31202215",name: "Tiancum", sex: "男", birthday: "Feb 12, 1985", address: "深圳" ,phone:""  },
-            //                 { stu_id:"31202216",name: "Jacob", sex: "女", birthday: "Aug 23, 1983", address: "广州"  ,phone:"" },
-            //                 { stu_id:"31202217",name: "Nephi", sex: "男", birthday: "May 31, 2010", address: "日本" ,phone:""  },
-            //                 { stu_id:"31202218",name: "Enos", sex: "男", birthday: "Aug 3, 2008", address: "杭州" ,phone:""  },
-            //                 { stu_id:"31202219",name: "Moroni", sex: "女", birthday: "Oct 28, 1970", address: "" ,phone:""  },
-            //                 { stu_id:"31202220",name: "Tiancum", sex: "男", birthday: "Feb 12, 1985", address: "杭州" ,phone:""  },
-            //                 { stu_id:"31202221",name: "Jacob", sex: "男", birthday: "Aug 23, 1983", address: "杭州",phone:""   },
-            //                 { stu_id:"31202222",name: "Nephi", sex: "女", birthday: "May 31, 2010", address: "",phone:""   },
-            //                 { stu_id:"31202223",name: "Enos", sex: "男", birthday: "Aug 3, 2008", address: "杭州" ,phone:""  }];
-
-
-
+            //分页
+            $scope.size=15;
+            $scope.paginationOptions = {
+                filter:'',
+                page: 0,
+                size: $scope.size,
+                sorts: [{field:"stuId",direction:"asc"},{field:"name",direction:"asc"}]
+            };
+            $scope.getPagedRoundSortIndexes = function() {
+                $http.post('/stu/info/query',$scope.paginationOptions).success(function(page){
+                    $scope.gridOptions.totalItems = page.totalElements;
+                    $scope.roundSortIndexes=page.content;
+                    $scope.gridOptions.data=page.content;
+                });
+            }
         });
         angular.bootstrap(document.getElementById("tableBox"), ['myApp']);
