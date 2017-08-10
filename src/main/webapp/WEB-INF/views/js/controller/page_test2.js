@@ -1,5 +1,5 @@
 /**
- * Created by cxs on 2017/8/10. from TestMessageController.js
+ * Created by cxs on 2017/8/10. demo from TestMessageController.js
  */
 var app = angular.module('testMessage', ['ui.grid','ui.grid.selection','ui.grid.pinning','ui.grid.pagination','ui.grid.exporter','ui.grid.autoResize','ui.grid.resizeColumns','isteven-multi-select']);
 app.controller('testMessageController',function($rootScope,$scope,$controller,$http,$uibModal,$log,uiGridConstants,uiGridExporterConstants,MessageBox,UUID,i18nService,$filter) {

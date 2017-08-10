@@ -1,5 +1,5 @@
 /**
- * Created by cxs on 2017/8/10.  from BusinessClaimController.js
+ * Created by cxs on 2017/8/10. demo from BusinessClaimController.js
  */
 var app = angular.module('BusinessClaim', [ 'ui.grid', 'ui.grid.edit','ui.grid.selection','ui.grid.pinning','ui.grid.pagination','ui.grid.exporter','ui.grid.autoResize','ui.grid.resizeColumns']);
 app.controller('BusinessClaimController',function($rootScope,$scope,$compile,$controller,$http,$uibModal,$log,$state,uiGridConstants,uiGridExporterConstants,MessageBox,UUID,i18nService,$stateParams) {
