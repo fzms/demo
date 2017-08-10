@@ -19,7 +19,7 @@
 
             $scope.gridOptions = {
                 data:$scope.mydefalutData,
-                columnDefs: [{ field: 'stu_id',
+                columnDefs: [{ field: 'stuId',
                                  displayName: '学号',
                                  width: '15%',
                                  enableColumnMenu: false,// 是否显示列头部菜单按钮
