@@ -10,6 +10,8 @@
                     $scope.mydefalutData = data.data;
                     console.log( $scope.mydefalutData);
                     getPage(1, $scope.gridOptions.paginationPageSize);
+
+                    // $scope.getPagedRoundSortIndexes();
                 }).error(function(data){
                     console.log("查询失败");
                 });
@@ -166,11 +168,12 @@
                 sorts: [{field:"stuId",direction:"asc"},{field:"name",direction:"asc"}]
             };
             $scope.getPagedRoundSortIndexes = function() {
-                $http.post('/stu/info/query',$scope.paginationOptions).success(function(page){
+                $http.get('/stu/info/query',$scope.paginationOptions).success(function(page){
                     $scope.gridOptions.totalItems = page.totalElements;
                     $scope.roundSortIndexes=page.content;
                     $scope.gridOptions.data=page.content;
+                    console.log( $scope.gridOptions.totalItems);
                 });
-            }
+            };
         });
         angular.bootstrap(document.getElementById("tableBox"), ['myApp']);
