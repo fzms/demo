@@ -26,7 +26,7 @@ public class StuTableController {
         return "index";
     }
 
-    @RequestMapping(value = "query", method = RequestMethod.GET)
+    @RequestMapping(value = "query", method = RequestMethod.POST)
     @ResponseBody
     public AjaxResponse<List<StuTableDto>> query(HttpServletRequest request) throws Exception {
         return new AjaxResponse<List<StuTableDto>>(stuTableService.getList());
