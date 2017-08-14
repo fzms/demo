@@ -5,13 +5,16 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
     // 国际化；
     i18nService.setCurrentLang("zh-cn");
 
-    $scope.params = {params: {"pageNum":1,"pageSize":10}};
+
+    $scope.size=10; //cxs 每页的默认条数
+
+    $scope.params = {"pageNum":1,"pageSize":$scope.size}; //分页需要传进去的值
 
     $scope.findAll = function () {
-        $http.get("/stu/info/query",$scope.params).success(function (data) {
+        $http.get("/stu/info/query",$scope).success(function (data) {
             $scope.mydefalutData = data.data;
             console.log($scope.mydefalutData);
-            getPage(1, $scope.gridOptions.paginationPageSize);
+            getPage($scope.params.pageNum, $scope.gridOptions.paginationPageSize);
 
             // $scope.getPagedRoundSortIndexes();
         }).error(function (data) {
@@ -52,26 +55,9 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
             }
         ],
 
-        // enableSorting: true, //是否排序
-        // useExternalSorting: false, //是否使用自定义排序规则
-        // enableGridMenu: true, //是否显示grid 菜单
-        // showGridFooter: true, //是否显示grid footer
-        // enableHorizontalScrollbar :  1, //grid水平滚动条是否显示, 0-不显示  1-显示
-        // enableVerticalScrollbar : 0, //grid垂直滚动条是否显示, 0-不显示  1-显示
-
-        //-------- 分页属性 ----------------
-        // enablePagination: true, //是否分页，默认为true
-        // enablePaginationControls: true, //使用默认的底部分页
-        // paginationPageSizes: [10, 15, 20], //每页显示个数可选项
-        // paginationCurrentPage:1, //当前页码
-        // paginationPageSize: 10, //每页显示个数
-        // //paginationTemplate:"<div></div>", //自定义底部分页代码
-        // totalItems : 0, // 总数量
-        // useExternalPagination: true,//是否使用分页按钮
-
 
         showGroupPanel: true,
-        paginationPageSizes: [5, 10, 15],
+        paginationPageSizes: [1, 2, 3],
         paginationPageSize: $scope.size,
         //使用服务端分页
         useExternalPagination: true,//是否使用分页按钮
@@ -163,6 +149,7 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
             });
         }
     };
+
 
     var getPage = function (curPage, pageSize) {
         var firstRow = (curPage - 1) * pageSize;
