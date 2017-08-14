@@ -1,3 +1,6 @@
+/**
+ * Created by cxs on 2017/8/14.
+ */
 var app = angular.module('myApp', ['ui.grid', 'ui.grid.selection', 'ui.grid.edit',
     'ui.grid.exporter', 'ui.grid.pagination', 'ui.grid.resizeColumns', 'ui.grid.autoResize']);
 
@@ -5,32 +8,49 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
     // 国际化；
     i18nService.setCurrentLang("zh-cn");
 
-    // 初始每页显示多少个数据
-    $scope.size = 5;
 
-    //分页的传参
+    $scope.size=5; //cxs 每页的默认条数
+
+    //分页
+    $scope.size = 15;
     $scope.params = {
         filter: '',
-        pageNum: 1,  //初始页数
-        pageSize: $scope.size,  //显示多少条数据
+        pageNum: 0,
+        pageSize: $scope.size,
         sorts: [{field: "stuId", direction: "asc"}, {field: "name", direction: "asc"}]
     };
+    $scope.getPagedRoundSortIndexes = function () {
+        $http.get('/stu/info/query', $scope.params).success(function (page) {
+            $scope.gridOptions.totalItems = page.totalElements;
+            $scope.roundSortIndexes = page.content;
+            $scope.gridOptions.data = page.content;
+            console.log($scope.gridOptions.totalItems);
+        });
+    };
 
-    //调取数据
-    $scope.getAll = function () {
-        $http.get("/stu/info/query",$scope.params).success(function (data) {
-            // $scope.gridOptions.totalItems = data.totalElements;
-            $scope.gridOptions.totalItems = data.length;
-            $scope.roundSortIndexes = data.content;
-            $scope.gridOptions.data = data.content;
+
+
+    $scope.params = {"pageNum":1,"pageSize":$scope.size}; //分页需要传进去的值
+
+    $scope.findAll = function () {
+        $http.get("/stu/info/query",$scope).success(function (data) {
+            $scope.mydefalutData = data.data;
+            console.log($scope.mydefalutData);
+            getPage($scope.params.pageNum, $scope.gridOptions.paginationPageSize);
+
+            // $scope.getPagedRoundSortIndexes();
+        }).error(function (data) {
+            console.log("查询失败");
         });
     };
 
     // $http.get(URL,{params: {"id":id}}).success(function(response, status, headers, config){})
 
-    $scope.getAll();
+    $scope.findAll();
+    console.log($scope.mydefalutData);
 
     $scope.gridOptions = {
+        data: $scope.mydefalutData,
         columnDefs: [{
             field: 'stuId',
             displayName: '学号',
@@ -91,8 +111,7 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
 
         //--------------导出----------------------------------
         exporterAllDataFn: function () {
-            //cxs备注
-            // return getPage(1, $scope.gridOptions.totalItems);
+            return getPage(1, $scope.gridOptions.totalItems);
         },
         exporterCsvColumnSeparator: ',',
         exporterCsvFilename: 'download.csv',
@@ -140,16 +159,16 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
             $scope.gridApi = gridApi;
             //分页按钮事件
             gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
-                $scope.paginationOptions.page = newPage-1;
-                $scope.paginationOptions.size = pageSize;
-                $scope.getAll();
+                if (getPage) {
+                    getPage(newPage, pageSize);
+                }
             });
             //行选中事件
-            // $scope.gridApi.selection.on.rowSelectionChanged($scope, function (row, event) {
-            //     if (row) {
-            //         $scope.testRow = row.entity;
-            //     }
-            // });
+            $scope.gridApi.selection.on.rowSelectionChanged($scope, function (row, event) {
+                if (row) {
+                    $scope.testRow = row.entity;
+                }
+            });
         }
     };
 
