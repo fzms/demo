@@ -18,8 +18,8 @@ public class StuTableServiceImpl implements IStuTableService {
     private StuTableDao stuTableDao;
 
     @Override
-    public List<StuTableDto> getList() throws Exception {
-        PageHelper.startPage(1, 2);
+    public List<StuTableDto> getList(int pageNum, int pageSize) throws Exception {
+        PageHelper.startPage(pageNum, pageSize);
         List<StuTableDto> stuTableDtos = stuTableDao.selectList();
         return stuTableDtos;
     }
