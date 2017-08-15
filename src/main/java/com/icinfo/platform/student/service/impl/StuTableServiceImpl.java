@@ -1,6 +1,8 @@
 package com.icinfo.platform.student.service.impl;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.icinfo.platform.student.dao.StuTableDao;
 import com.icinfo.platform.student.dto.StuTableDto;
 import com.icinfo.platform.student.model.StuTable;
@@ -8,8 +10,6 @@ import com.icinfo.platform.student.service.IStuTableService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/8/9.
@@ -20,10 +20,10 @@ public class StuTableServiceImpl implements IStuTableService {
     private StuTableDao stuTableDao;
 
     @Override
-    public List<StuTableDto> getList(int pageNum, int pageSize) throws Exception {
+    public PageInfo<StuTableDto> getList(int pageNum, int pageSize) throws Exception {
         PageHelper.startPage(pageNum, pageSize);
-        List<StuTableDto> stuTableDtos = stuTableDao.selectList();
-        return stuTableDtos;
+        Page<StuTableDto> page = (Page<StuTableDto>) stuTableDao.selectList();
+        return page.toPageInfo();
     }
 
     @Override

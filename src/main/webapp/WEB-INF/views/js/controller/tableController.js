@@ -18,11 +18,11 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
 
     //调取数据
     $scope.getAll = function () {
-        $http.get("/stu/info/query",$scope.params).success(function (data) {
+        $http.get("/stu/info/query",$scope).success(function (data) {
             // $scope.gridOptions.totalItems = data.totalElements;
-            $scope.gridOptions.totalItems = data.length;
-            $scope.roundSortIndexes = data.content;
-            $scope.gridOptions.data = data.content;
+            $scope.gridOptions.totalItems = data.data.total;
+            $scope.roundSortIndexes = data.data.list;
+            $scope.gridOptions.data = data.data.list;
         });
     };
 
@@ -59,7 +59,7 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
 
 
         showGroupPanel: true,
-        paginationPageSizes: [1, 2, 3],
+        paginationPageSizes: [5, 10, 15],
         paginationPageSize: $scope.size,
         //使用服务端分页
         useExternalPagination: true,//是否使用分页按钮

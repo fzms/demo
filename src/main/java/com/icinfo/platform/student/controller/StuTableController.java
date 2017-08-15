@@ -1,5 +1,6 @@
 package com.icinfo.platform.student.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.icinfo.platform.common.bean.AjaxResponse;
 import com.icinfo.platform.student.dto.StuTableDto;
 import com.icinfo.platform.student.model.StuTable;
@@ -8,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/8/9.
@@ -41,9 +40,9 @@ public class StuTableController {
      */
     @RequestMapping(value = "query", method = RequestMethod.GET)
     @ResponseBody
-    public AjaxResponse<List<StuTableDto>> query(@RequestParam(value = "pageNum", required = true) int pageNum,
-                                                 @RequestParam(value = "pageSize", required = true) int pageSize) throws Exception {
-        return new AjaxResponse<List<StuTableDto>>(stuTableService.getList(pageNum, pageSize));
+    public AjaxResponse<PageInfo<StuTableDto>> query(@RequestParam(value = "pageNum", required = true) int pageNum,
+                                                     @RequestParam(value = "pageSize", required = true) int pageSize) throws Exception {
+        return new AjaxResponse<PageInfo<StuTableDto>>(stuTableService.getList(pageNum, pageSize));
     }
 
     /**
