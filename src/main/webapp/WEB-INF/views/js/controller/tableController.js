@@ -140,8 +140,8 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
             $scope.gridApi = gridApi;
             //分页按钮事件
             gridApi.pagination.on.paginationChanged($scope, function (newPage, pageSize) {
-                $scope.paginationOptions.page = newPage-1;
-                $scope.paginationOptions.size = pageSize;
+                $scope.params.pageNum = newPage;
+                $scope.params.pageSize = pageSize;
                 $scope.getAll();
             });
             //行选中事件
