@@ -1,0 +1,46 @@
+<draggable>
+    <div class="modal-header" style="border-bottom:1px solid #32C5D2;">
+        <div class="col-md-10" style="padding-left: 0px;">
+            <h5 class="modal-title text-primary font-green-sharp"><i class="fa fa-edit"></i>&nbsp;标注类别属性维护</h5>
+        </div>
+        <div class="col-md-2" style="padding-top: 5px;padding-right: 5px;">
+            <button type="button" class="close" ng-click="cancel()"><span aria-hidden="true">&times;</span></button>
+        </div>
+    </div>
+    <div class="modal-body row">
+        <form project="form" class="col-md-12">
+            <div class="form-group hidden">
+                <label>ID：</label>
+                <input type="text" class="form-control input-sm" ng-model="roundSortIndex.id"/>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-12">名称：</label>
+                <div class="col-md-12">
+                    <input class="form-control input-sm" id="text" ng-model="roundSortIndex.text" ng-init="hello">
+                </div>
+            </div>
+
+            <div class="col-md-12" style="height: 1rem;"></div>
+            <div class="form-group">
+                <label class="col-md-12">shape字段：</label>
+                <div class="col-md-12">
+                    <input class="form-control input-sm" id="shape" ng-model="roundSortIndex.shape">
+                </div>
+            </div>
+
+            <div class="col-md-12" style="height: 1rem;"></div>
+            <div class="form-group">
+                <label class="col-md-12">备注：</label>
+                <div class="col-md-12">
+                    <input class="form-control input-sm" id="remark" ng-model="roundSortIndex.remark" ng-init="hello">
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-info" type="button" ng-click="formRequired()">确定</button>
+        <button class="btn btn-default" type="button" ng-click="cancel()">取消</button>
+    </div>
+</draggable>

@@ -1,10 +1,19 @@
+html,body{
+	height: 100%;
+}
 .head{
 	background-color: #ff0;
 	height: 2em;
 	width: 100%;
 	margin-bottom: 2em;
+	position: absolute;
+	z-index: 10;
 }
-
+.head-child{
+	height: 2em;
+	width: 100%;
+	margin-bottom: 2em;
+}
 .nav-list{
 	line-height: 2em;
 	font-size: 1.5em;
@@ -15,4 +24,14 @@
 }
 .ui-grid-header-cell-wrapper{
 	height: auto;
+}
+
+.input-model{
+	height: 100%;
+	position: fixed;
+	width: 100%;
+	top:0;
+	left: 0;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 99;
 }
