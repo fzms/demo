@@ -53,7 +53,7 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
                 pinnedRight: false,
                 enableColumnMenu: false,
                 enableSorting: false,
-                cellTemplate: '<div class="ui-grid-cell-contents text-center"><button type="button" class="btn blue-madison btn-xs" ng-click="grid.appScope.edit(row.entity)" ><i class="fa fa-edit"></i><span style="padding-left: 2px;">编辑</span></button>&nbsp;<button type="button" class="btn blue-madison btn-xs" ng-click="grid.appScope.delete(row.entity)" ><i class="fa fa-remove"></i><span style="padding-left: 2px;">删除</span></button></div> '
+                cellTemplate: '<div class="ui-grid-cell-contents text-center"><button type="button" class="btn blue-madison btn-xs" ng-click="grid.appScope.edit(row)" ><i class="fa fa-edit"></i><span style="padding-left: 2px;">编辑</span></button>&nbsp;<button type="button" class="btn blue-madison btn-xs" ng-click="grid.appScope.delete(row)" ><i class="fa fa-remove"></i><span style="padding-left: 2px;">删除</span></button></div> '
             }
         ],
 
@@ -164,7 +164,148 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
     };
 
 
+//新增
+    $scope.addNew=function(){
+        $scope.edit({id:UUID.generate()},true);
+    }
+    //编辑
+    $scope.edit=function (roundSortIndex,addNew) {
+        var modalInstance = $uibModal.open({
+            backdrop:'static',
+            animation: true,
+            templateUrl: 'tpl/model.html',
+            controller: 'editController',
+            size: 'md',
+            resolve: {
+                addNew:function(){
+                    return addNew;
+                },
+                roundSortIndex: function () {
+                    return roundSortIndex;
+                }
+            }
+        });
+        modalInstance.result.then(function (result) {
+            if(result){
+                MessageBox.alert("保存成功！");
+                $scope.getPagedRoundSortIndexes();
+            }
+            else {
+                MessageBox.alert("保存失败！");
+            }
+        });
+    };
 
+    //删除
+    $scope.delete=function(row){
+        //console.log(row.entity);
+        //console.log(row.entity.stuId);
+        $http.post(" /stu/info/delete/"+row.entity.stuId).success(function(data){
+            if(data) {
+                console.log("删除成功！");
+                //console.log(this.stuId);
+                $scope.getAll();
+            }
+            else {
+                alert("删除失败！");
+            }
+        });
+    }
 
 });
+
+
 angular.bootstrap(document.getElementById("tableBox"), ['myApp']);
+
+// angular.bootstrap(document.getElementById("modelBox"), ['moderApp']);
+
+
+// app.controller('editController', function ($scope,$uibModalInstance,$http,roundSortIndex,addNew,MessageBox) {
+//     $scope.departments = [];
+//     $scope.users = [];
+//     $scope.roundSortGroups=[];
+//     $scope.roundSortIndex = roundSortIndex;
+//     //console.log(roundSortIndex);
+//     /**
+//      * 查找现有的所有roundSortGroups
+//      * @param
+//      */
+//     $scope.findAllRoundSortGroups = function(){
+//         $http.post("roundSortGroupController/getRoundSortGroups.do").success(function (data) {
+//             $scope.roundSortGroups = data;
+//         }).error(function(data){
+//             MessageBox.alert("查询失败");
+//         });
+//     };
+//     $scope.findAllRoundSortGroups();
+//
+//     //此处备注为cxs测试
+//     // $scope.getRoundSortIndex=function(roundSortIndex){
+//     //     $http.post("roundSortIndexController/findById.do?id=" + roundSortIndex.id).success(function(roundSortIndex){
+//     //         $scope.roundSortIndex=roundSortIndex;
+//     //     });
+//     // };
+//     $scope.getRoundSortIndex=function(roundSortIndex){
+//         $scope.roundSortIndex=roundSortIndex;
+//         //console.log(roundSortIndex);
+//     };
+//
+//
+//     $scope.findAllUsers = function(){
+//         $http.post("userController/getAllAppraisals.do").success(function(users){
+//             $scope.users=users;
+//         });
+//     }
+//
+//     //此处备注为cxs测试
+//     // $scope.ok = function () {
+//     //     console.log($scope.roundSortIndex);
+//     //     $http.post("roundSortIndexController/saveRoundSortIndex.do",$scope.roundSortIndex).success(function(data){
+//     //         if(data)
+//     //             $uibModalInstance.close(true);
+//     //         else
+//     //         {
+//     //             MessageBox.alert("保存失败！");
+//     //         }
+//     //     });
+//     // };
+//
+//
+//     $scope.cancel = function () {
+//         $uibModalInstance.dismiss('cancel');
+//     };
+//
+//
+//     //表单验证
+//     $scope.formRequired = function(){
+//         $("#text").parent().removeClass('has-error');
+//         $("#shape").parent().removeClass('has-error');
+//         $("#remark").parent().removeClass('has-error');
+//         if($("#text").val() == "")
+//             $("#text").parent().addClass('has-error');
+//         else if($("#shape").val() == "?")
+//             $("#shape").parent().addClass('has-error');
+//         else if($("#remark").val() == "?")
+//             $("#remark").parent().addClass('has-error');
+//         else
+//             $scope.ok();
+//         //console.log("ok");
+//     }
+//
+//     //此处备注为cxs测试
+//     // $scope.findAllDepartments = function(){
+//     //     $http.post("departmentController/findAllDepartments.do").success(function (departments) {
+//     //         $scope.departments = departments;
+//     //     }).error(function(data){
+//     //         MessageBox.alert("查询失败");
+//     //     });
+//     // };
+//
+//     $scope.findAllUsers();
+//     if(addNew)
+//         $scope.roundSortIndex = roundSortIndex;
+//     else
+//         $scope.getRoundSortIndex(roundSortIndex);
+//
+//
+// });
