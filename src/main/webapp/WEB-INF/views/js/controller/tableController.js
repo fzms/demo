@@ -6,7 +6,7 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
     i18nService.setCurrentLang("zh-cn");
 
     // 初始每页显示多少个数据
-    $scope.size = 5;
+    $scope.size = 15;
 
     //分页的传参
     $scope.params = {
@@ -150,6 +150,8 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
             //         $scope.testRow = row.entity;
             //     }
             // });
+
+
         }
     };
 
@@ -169,32 +171,75 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
         $scope.edit({id:UUID.generate()},true);
     }
     //编辑
-    $scope.edit=function (roundSortIndex,addNew) {
-        var modalInstance = $uibModal.open({
-            backdrop:'static',
-            animation: true,
-            templateUrl: 'tpl/model.html',
-            controller: 'editController',
-            size: 'md',
-            resolve: {
-                addNew:function(){
-                    return addNew;
-                },
-                roundSortIndex: function () {
-                    return roundSortIndex;
-                }
-            }
-        });
-        modalInstance.result.then(function (result) {
-            if(result){
-                MessageBox.alert("保存成功！");
-                $scope.getPagedRoundSortIndexes();
-            }
-            else {
-                MessageBox.alert("保存失败！");
-            }
-        });
+    // $scope.edit=function (roundSortIndex,addNew) {
+    //     var modalInstance = $uibModal.open({
+    //         backdrop:'static',
+    //         animation: true,
+    //         templateUrl: 'tpl/model.html',
+    //         controller: 'editController',
+    //         size: 'md',
+    //         resolve: {
+    //             addNew:function(){
+    //                 return addNew;
+    //             },
+    //             roundSortIndex: function () {
+    //                 return roundSortIndex;
+    //             }
+    //         }
+    //     });
+    //     modalInstance.result.then(function (result) {
+    //         if(result){
+    //             alert("保存成功！");
+    //             $scope.getPagedRoundSortIndexes();
+    //         }
+    //         else {
+    //             alert("保存失败！");
+    //         }
+    //     });
+    // };
+
+    //新增
+    $scope.addNew=function (){
+        $scope.state="add";
+        console.log($scope.state);
+        $scope.myVar = true;
+
+    }
+
+    //编辑
+    $scope.edit=function(row, event) {
+        $scope.state="edit";
+        console.log($scope.state);
+        $scope.myDis = true;//学号不可点击
+        $scope.myVar = true;
+        if (row) {
+            $scope.testRow = row.entity;
+        }
     };
+
+    // 提交
+    $scope.submitForm=function(){
+        console.log($scope.state);
+        console.log($scope.testRow);
+        if ($scope.state=="edit") {
+            $scope.myVar = false;
+            console.log("编辑成功");
+        }else if($scope.state=="add"){
+            if($("#text").val() == ""){
+                alert("学号不可为空");
+            }else{
+                console.log("新增成功");
+                $scope.myVar = false;
+            }
+        }
+        else
+            alert("提交失败！");
+    };
+    $scope.myVar = false;
+    $scope.cancel=function(){
+        $scope.myVar = false;
+    };
+
 
     //删除
     $scope.delete=function(row){
