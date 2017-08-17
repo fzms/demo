@@ -166,43 +166,25 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
     };
 
 
-//新增
-    $scope.addNew=function(){
-        $scope.edit({id:UUID.generate()},true);
+
+
+    //表单清空
+    $scope.allNull=function () {
+        $scope.testRow.stuId="";
+        $scope.testRow.sex="";
+        $scope.testRow.name="";
+        $scope.testRow.address="";
+        $scope.testRow.phone="";
     }
-    //编辑
-    // $scope.edit=function (roundSortIndex,addNew) {
-    //     var modalInstance = $uibModal.open({
-    //         backdrop:'static',
-    //         animation: true,
-    //         templateUrl: 'tpl/model.html',
-    //         controller: 'editController',
-    //         size: 'md',
-    //         resolve: {
-    //             addNew:function(){
-    //                 return addNew;
-    //             },
-    //             roundSortIndex: function () {
-    //                 return roundSortIndex;
-    //             }
-    //         }
-    //     });
-    //     modalInstance.result.then(function (result) {
-    //         if(result){
-    //             alert("保存成功！");
-    //             $scope.getPagedRoundSortIndexes();
-    //         }
-    //         else {
-    //             alert("保存失败！");
-    //         }
-    //     });
-    // };
+
 
     //新增
     $scope.addNew=function (){
         $scope.state="add";
-        console.log($scope.state);
+        $scope.myDis = false;
         $scope.myVar = true;
+        console.log($scope.state);
+        $scope.allNull();
 
     }
 
@@ -222,8 +204,9 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
         console.log($scope.state);
         console.log($scope.testRow);
         if ($scope.state=="edit") {
-            $scope.myVar = false;
             console.log("编辑成功");
+            $scope.myVar = false;
+            $scope.myDis = false;
         }else if($scope.state=="add"){
             if($("#stuId").val() == ""){
                 alert("学号不可为空");
