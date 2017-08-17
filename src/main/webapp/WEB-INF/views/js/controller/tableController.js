@@ -225,7 +225,7 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
             $scope.myVar = false;
             console.log("编辑成功");
         }else if($scope.state=="add"){
-            if($("#text").val() == ""){
+            if($("#stuId").val() == ""){
                 alert("学号不可为空");
             }else{
                 console.log("新增成功");
