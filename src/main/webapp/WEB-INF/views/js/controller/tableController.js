@@ -6,19 +6,20 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
     i18nService.setCurrentLang("zh-cn");
 
     // 初始每页显示多少个数据
-    $scope.size = 15;
+    $scope.size = 10;
 
     //分页的传参
     $scope.params = {
         filter: '',
         pageNum: 1,  //初始页数
         pageSize: $scope.size,  //显示多少条数据
-        sorts: [{field: "stuId", direction: "asc"}, {field: "name", direction: "asc"}]
+        sorts: [{field: "stuId", direction: "asc"}, {field: "name", direction: "asc"}],
+        name:$('#q-name').val()
     };
 
     //调取数据
     $scope.getAll = function () {
-        $http.get("/stu/info/query",$scope).success(function (data) {
+        $http.post("/stu/info/query", $scope.params).success(function (data) {
             // $scope.gridOptions.totalItems = data.totalElements;
             $scope.gridOptions.totalItems = data.data.total;
             $scope.roundSortIndexes = data.data.list;
@@ -166,31 +167,34 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
     };
 
 
-
-
     //表单清空
-    $scope.allNull=function () {
-        $scope.testRow.stuId="";
-        $scope.testRow.sex="";
-        $scope.testRow.name="";
-        $scope.testRow.address="";
-        $scope.testRow.phone="";
-    }
+    $scope.allNull = function () {
+        $scope.testRow.stuId = "";
+        $scope.testRow.sex = "";
+        $scope.testRow.name = "";
+        $scope.testRow.address = "";
+        $scope.testRow.phone = "";
+    };
+
+    //查询
+    $scope.search1 = function () {
+        $scope.getAll();
+    };
 
 
     //新增
-    $scope.addNew=function (){
-        $scope.state="add";
+    $scope.addNew = function () {
+        $scope.state = "add";
         $scope.myDis = false;
         $scope.myVar = true;
         console.log($scope.state);
         $scope.allNull();
 
-    }
+    };
 
     //编辑
-    $scope.edit=function(row, event) {
-        $scope.state="edit";
+    $scope.edit = function (row, event) {
+        $scope.state = "edit";
         console.log($scope.state);
         $scope.myDis = true;//学号不可点击
         $scope.myVar = true;
@@ -200,36 +204,56 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
     };
 
     // 提交
-    $scope.submitForm=function(){
+    $scope.submitForm = function () {
         console.log($scope.state);
         console.log($scope.testRow);
-        if ($scope.state=="edit") {
+        if ($scope.state == "edit") {
             console.log("编辑成功");
+
+            //编辑
+            $http.post("/stu/info/edit", $scope.testRow).success(function (data) {
+                // $scope.gridOptions.totalItems = data.totalElements;
+                $scope.gridOptions.totalItems = data.data.total;
+                $scope.roundSortIndexes = data.data.list;
+                $scope.gridOptions.data = data.data.list;
+            });
+
             $scope.myVar = false;
             $scope.myDis = false;
-        }else if($scope.state=="add"){
-            if($("#stuId").val() == ""){
+        } else if ($scope.state == "add") {
+            if ($("#stuId").val() == "") {
                 alert("学号不可为空");
-            }else{
+            } else {
+                //新增
+                $http.post("/stu/info/add", $scope.testRow).success(function (data) {
+                    // $scope.gridOptions.totalItems = data.totalElements;
+                    $scope.gridOptions.totalItems = data.data.total;
+                    $scope.roundSortIndexes = data.data.list;
+                    $scope.gridOptions.data = data.data.list;
+                });
                 console.log("新增成功");
                 $scope.myVar = false;
             }
         }
-        else
+        else {
             alert("提交失败！");
+        }
+        //刷新表格
+        $scope.getAll();
     };
+
     $scope.myVar = false;
-    $scope.cancel=function(){
+    $scope.cancel = function () {
         $scope.myVar = false;
     };
 
 
     //删除
-    $scope.delete=function(row){
+    $scope.delete = function (row) {
         //console.log(row.entity);
         //console.log(row.entity.stuId);
-        $http.post(" /stu/info/delete/"+row.entity.stuId).success(function(data){
-            if(data) {
+        $http.post(" /stu/info/delete/" + row.entity.stuId).success(function (data) {
+            if (data) {
                 console.log("删除成功！");
                 //console.log(this.stuId);
                 $scope.getAll();

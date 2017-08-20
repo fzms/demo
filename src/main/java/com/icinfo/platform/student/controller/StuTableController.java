@@ -33,16 +33,14 @@ public class StuTableController {
     /**
      * 分页查询
      *
-     * @param pageNum  页码
-     * @param pageSize 每页大小
+     * @param stuTable 查询参数
      * @return 查询结果
      * @throws Exception 异常
      */
-    @RequestMapping(value = "query", method = RequestMethod.GET)
+    @RequestMapping(value = "query", method = RequestMethod.POST)
     @ResponseBody
-    public AjaxResponse<PageInfo<StuTableDto>> query(@RequestParam(value = "pageNum", required = true) int pageNum,
-                                                     @RequestParam(value = "pageSize", required = true) int pageSize) throws Exception {
-        return new AjaxResponse<PageInfo<StuTableDto>>(stuTableService.getList(pageNum, pageSize));
+    public AjaxResponse<PageInfo<StuTableDto>> query(@RequestBody StuTable stuTable) throws Exception {
+        return new AjaxResponse<PageInfo<StuTableDto>>(stuTableService.getList(stuTable));
     }
 
     /**
@@ -91,6 +89,34 @@ public class StuTableController {
     @ResponseBody
     public AjaxResponse<Boolean> addOrEdit(StuTable stuTable) throws Exception {
         stuTableService.save(stuTable);
+        return new AjaxResponse<>(true);
+    }
+
+    /**
+     * 新增
+     *
+     * @param stuTable
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResponse<Boolean> add(@RequestBody StuTable stuTable) throws Exception {
+        stuTableService.add(stuTable);
+        return new AjaxResponse<>(true);
+    }
+
+    /**
+     * 修改
+     *
+     * @param stuTable
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    @ResponseBody
+    public AjaxResponse<Boolean> edit(@RequestBody StuTable stuTable) throws Exception {
+        stuTableService.edit(stuTable);
         return new AjaxResponse<>(true);
     }
 

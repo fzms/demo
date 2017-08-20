@@ -35,6 +35,11 @@
 		</nav>
 		<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 index-main">
 
+			<div>
+				<label>姓名</label>
+				<input id="q-name" value="">
+				<button class="btn" onclick="search1()">查询</button>
+			</div>
 			<div id="tableBox" ng-app="myApp" ng-controller="MyCtrl" class="main-table">
 				<div  ui-grid="gridOptions" style="width: 100%; height: 500px; text-align: center;" ui-grid-edit ui-grid-pagination ui-grid-selection ui-grid-exporter ui-grid-resize-columns ui-grid-auto-resize>
 				</div>
@@ -68,12 +73,12 @@
 						<div class="form-group ">
 							<div class="radio  col-sm-offset-2">
 								<label>
-									<input type="radio" name="sex" id="sex1" value="male"   ng-model="testRow.sex"> 男
+									<input type="radio" name="sex" id="sex1" value="男"   ng-model="testRow.sex"> 男
 								</label>
 							</div>
 							<div class="radio  col-sm-offset-2">
 								<label>
-									<input type="radio" name="sex" id="sex2" value="female"  ng-model="testRow.sex">女
+									<input type="radio" name="sex" id="sex2" value="女"  ng-model="testRow.sex">女
 								</label>
 							</div>
 						</div>

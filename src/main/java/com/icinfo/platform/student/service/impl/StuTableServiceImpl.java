@@ -20,9 +20,9 @@ public class StuTableServiceImpl implements IStuTableService {
     private StuTableDao stuTableDao;
 
     @Override
-    public PageInfo<StuTableDto> getList(int pageNum, int pageSize) throws Exception {
-        PageHelper.startPage(pageNum, pageSize);
-        Page<StuTableDto> page = (Page<StuTableDto>) stuTableDao.selectList();
+    public PageInfo<StuTableDto> getList(StuTable stuTable) throws Exception {
+        PageHelper.startPage(stuTable.getPageNum(), stuTable.getPageSize());
+        Page<StuTableDto> page = (Page<StuTableDto>) stuTableDao.selectList(stuTable);
         return page.toPageInfo();
     }
 
@@ -38,6 +38,16 @@ public class StuTableServiceImpl implements IStuTableService {
         }else {
             stuTableDao.updateByPrimaryKey(stuTable);
         }
+    }
+
+    @Override
+    public void add(StuTable stuTable) throws Exception {
+        stuTableDao.insert(stuTable);
+    }
+
+    @Override
+    public void edit(StuTable stuTable) throws Exception {
+        stuTableDao.updateByPrimaryKey(stuTable);
     }
 
     @Override
