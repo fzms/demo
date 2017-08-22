@@ -177,7 +177,7 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
     };
 
     //查询
-    $scope.search1 = function () {
+    $scope.searchSec = function () {
         $scope.getAll();
     };
 
@@ -188,7 +188,7 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
         $scope.myDis = false;
         $scope.myVar = true;
         console.log($scope.state);
-        $scope.allNull();
+        //$scope.allNull();
 
     };
 

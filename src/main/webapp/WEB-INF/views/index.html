@@ -35,12 +35,14 @@
 		</nav>
 		<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 index-main">
 
-			<div>
-				<label>姓名</label>
-				<input id="q-name" value="">
-				<button class="btn" onclick="search1()">查询</button>
-			</div>
+
 			<div id="tableBox" ng-app="myApp" ng-controller="MyCtrl" class="main-table">
+				<div>
+					<label>姓名</label>
+					<input id="q-name" value="">
+					<button class="btn" ng-click="searchSec()">查询</button>
+				</div>
+
 				<div  ui-grid="gridOptions" style="width: 100%; height: 500px; text-align: center;" ui-grid-edit ui-grid-pagination ui-grid-selection ui-grid-exporter ui-grid-resize-columns ui-grid-auto-resize>
 				</div>
 
