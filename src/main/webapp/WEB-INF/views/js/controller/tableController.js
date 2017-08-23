@@ -14,7 +14,7 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
         pageNum: 1,  //初始页数
         pageSize: $scope.size,  //显示多少条数据
         sorts: [{field: "stuId", direction: "asc"}, {field: "name", direction: "asc"}],
-        name: $('#q-name').val()
+        name: ""
     };
 
     //调取数据
@@ -178,6 +178,7 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
 
     //查询
     $scope.searchSec = function () {
+        $scope.params.name = $('#q-name').val();
         $scope.getAll();
     };
 
@@ -187,7 +188,6 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
         $scope.state = "add";
         $scope.myDis = false;
         $scope.myVar = true;
-        console.log($scope.state);
         //$scope.allNull();
 
     };
@@ -195,7 +195,6 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
     //编辑
     $scope.edit = function (row, event) {
         $scope.state = "edit";
-        console.log($scope.state);
         $scope.myDis = true;//学号不可点击
         $scope.myVar = true;
         if (row) {
@@ -205,11 +204,7 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
 
     // 提交
     $scope.submitForm = function () {
-        console.log($scope.state);
-        console.log($scope.testRow);
         if ($scope.state == "edit") {
-            console.log("编辑成功");
-
             //编辑
             $http.post("/stu/info/edit", $scope.testRow).success(function (data) {
                 //刷新表格
@@ -224,14 +219,12 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
             } else {
                 //新增
                 $http.post("/stu/info/add", $scope.testRow).success(function (data) {
-                    console.log(data);
-                    if(data.status==100){
+                    if (data.status == 100) {
                         alert(data.subMsg);
                     }
                     //刷新表格
                     $scope.getAll();
                 });
-                console.log("新增成功");
                 $scope.myVar = false;
             }
         }
@@ -249,12 +242,8 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
 
     //删除
     $scope.delete = function (row) {
-        //console.log(row.entity);
-        //console.log(row.entity.stuId);
         $http.post(" /stu/info/delete/" + row.entity.stuId).success(function (data) {
             if (data) {
-                console.log("删除成功！");
-                //console.log(this.stuId);
                 $scope.getAll();
             }
             else {
