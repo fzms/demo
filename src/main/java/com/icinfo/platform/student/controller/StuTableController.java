@@ -102,6 +102,9 @@ public class StuTableController {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
     public AjaxResponse<Boolean> add(@RequestBody StuTable stuTable) throws Exception {
+        if (stuTableService.getByStuId(stuTable.getStuId()) != null) {
+            return new AjaxResponse<>("false", "学号已存在");
+        }
         stuTableService.add(stuTable);
         return new AjaxResponse<>(true);
     }

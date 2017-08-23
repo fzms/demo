@@ -14,7 +14,7 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
         pageNum: 1,  //初始页数
         pageSize: $scope.size,  //显示多少条数据
         sorts: [{field: "stuId", direction: "asc"}, {field: "name", direction: "asc"}],
-        name:$('#q-name').val()
+        name: $('#q-name').val()
     };
 
     //调取数据
@@ -212,10 +212,8 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
 
             //编辑
             $http.post("/stu/info/edit", $scope.testRow).success(function (data) {
-                // $scope.gridOptions.totalItems = data.totalElements;
-                $scope.gridOptions.totalItems = data.data.total;
-                $scope.roundSortIndexes = data.data.list;
-                $scope.gridOptions.data = data.data.list;
+                //刷新表格
+                $scope.getAll();
             });
 
             $scope.myVar = false;
@@ -226,10 +224,12 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
             } else {
                 //新增
                 $http.post("/stu/info/add", $scope.testRow).success(function (data) {
-                    // $scope.gridOptions.totalItems = data.totalElements;
-                    $scope.gridOptions.totalItems = data.data.total;
-                    $scope.roundSortIndexes = data.data.list;
-                    $scope.gridOptions.data = data.data.list;
+                    console.log(data);
+                    if(data.status==100){
+                        alert(data.subMsg);
+                    }
+                    //刷新表格
+                    $scope.getAll();
                 });
                 console.log("新增成功");
                 $scope.myVar = false;
@@ -238,8 +238,7 @@ app.controller('MyCtrl', function ($scope, i18nService, $http) {
         else {
             alert("提交失败！");
         }
-        //刷新表格
-        $scope.getAll();
+
     };
 
     $scope.myVar = false;
